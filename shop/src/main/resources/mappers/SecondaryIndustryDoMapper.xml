@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mapper.SecondaryIndustryDoMapper" >
+  <resultMap id="BaseResultMap" type="com.shop.pojo.SecondaryIndustryDo" >
+    <id column="pk_secondary_industry_id" property="pkSecondaryIndustryId" jdbcType="BIGINT" />
+    <result column="secondary_industry_no" property="secondaryIndustryNo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_secondary_industry_id, secondary_industry_no, name, create_id, create_time, update_time, 
+    is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from secondary_industry
+    where pk_secondary_industry_id = #{pkSecondaryIndustryId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from secondary_industry
+    where pk_secondary_industry_id = #{pkSecondaryIndustryId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectObjectListByWhere" resultMap="BaseResultMap" parameterType="com.shop.pojo.SecondaryIndustryDo" >
+    select 
+    <include refid="Base_Column_List" />
+    from secondary_industry
+    <where >
+      <if test="secondaryIndustryNo != null" >
+        and secondary_industry_no = #{secondaryIndustryNo,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectByBillId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from secondary_industry
+    <where >
+      <if test="selective != null" >
+        <if test="selective.secondaryIndustryNo != null" >
+          and secondary_industry_no = #{selective.secondaryIndustryNo,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.name != null" >
+          and name = #{selective.name,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.createId != null" >
+          and create_id = #{selective.createId,jdbcType=BIGINT}
+        </if>
+        <if test="selective.createTime != null" >
+          and to_days(create_time) = to_days(#{selective.createTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.updateTime != null" >
+          and to_days(update_time) = to_days(#{selective.updateTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.isDel != null" >
+          and is_del = #{selective.isDel,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="ids != null" >
+        and pk_secondary_industry_id in (<foreach collection="ids" separator="," item="item"> #{item} </foreach>)
+      </if>
+    </where>
+  </select>
+  <select id="selectCountByWhere" resultType="java.lang.Integer" parameterType="com.shop.pojo.SecondaryIndustryDo" >
+    select 
+     count(1) 
+    from secondary_industry
+    <where >
+      <if test="secondaryIndustryNo != null" >
+        and secondary_industry_no = #{secondaryIndustryNo,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.shop.pojo.SecondaryIndustryDo" useGeneratedKeys="true" keyProperty="pkSecondaryIndustryId" >
+    insert into secondary_industry (pk_secondary_industry_id, secondary_industry_no, 
+      name, create_id, create_time, update_time, is_del
+      )
+    values (#{pkSecondaryIndustryId,jdbcType=BIGINT}, #{secondaryIndustryNo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, now(), now(), #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" >
+    insert into secondary_industry (pk_secondary_industry_id, 
+      secondary_industry_no, name, create_id, 
+      create_time, update_time, is_del)
+    values 
+ <foreach collection="records" separator="," item="item">  (#{item.pkSecondaryIndustryId,jdbcType=BIGINT}, 
+      #{item.secondaryIndustryNo,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.createId,jdbcType=BIGINT}, 
+      now(), now(), #{item.isDel,jdbcType=VARCHAR})  
+ </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.shop.pojo.SecondaryIndustryDo" useGeneratedKeys="true" keyProperty="pkSecondaryIndustryId" >
+    insert into secondary_industry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkSecondaryIndustryId != null" >
+        pk_secondary_industry_id,
+      </if>
+      <if test="secondaryIndustryNo != null" >
+        secondary_industry_no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="true" >
+        create_time,
+      </if>
+      <if test="true" >
+        update_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkSecondaryIndustryId != null" >
+        #{pkSecondaryIndustryId,jdbcType=BIGINT},
+      </if>
+      <if test="secondaryIndustryNo != null" >
+        #{secondaryIndustryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.pojo.SecondaryIndustryDo" >
+    update secondary_industry
+    <set >
+      <if test="secondaryIndustryNo != null" >
+        secondary_industry_no = #{secondaryIndustryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="true" >
+        update_time = now(),
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_secondary_industry_id = #{pkSecondaryIndustryId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shop.pojo.SecondaryIndustryDo" >
+    update secondary_industry
+    set secondary_industry_no = #{secondaryIndustryNo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where pk_secondary_industry_id = #{pkSecondaryIndustryId,jdbcType=BIGINT}
+  </update>
+</mapper>

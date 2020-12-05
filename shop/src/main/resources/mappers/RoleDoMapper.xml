@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mapper.RoleDoMapper" >
+  <resultMap id="BaseResultMap" type="com.shop.pojo.RoleDo" >
+    <id column="pk_role_id" property="pkRoleId" jdbcType="BIGINT" />
+    <result column="role_no" property="roleNo" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_desc" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_role_id, role_no, role_name, role_desc, create_id, create_time, update_time, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where pk_role_id = #{pkRoleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from role
+    where pk_role_id = #{pkRoleId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectObjectListByWhere" resultMap="BaseResultMap" parameterType="com.shop.pojo.RoleDo" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    <where >
+      <if test="roleNo != null" >
+        and role_no = #{roleNo,jdbcType=VARCHAR}
+      </if>
+      <if test="roleName != null" >
+        and role_name = #{roleName,jdbcType=VARCHAR}
+      </if>
+      <if test="roleDesc != null" >
+        and role_desc = #{roleDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectByBillId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    <where >
+      <if test="selective != null" >
+        <if test="selective.roleNo != null" >
+          and role_no = #{selective.roleNo,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.roleName != null" >
+          and role_name = #{selective.roleName,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.roleDesc != null" >
+          and role_desc = #{selective.roleDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.createId != null" >
+          and create_id = #{selective.createId,jdbcType=BIGINT}
+        </if>
+        <if test="selective.createTime != null" >
+          and to_days(create_time) = to_days(#{selective.createTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.updateTime != null" >
+          and to_days(update_time) = to_days(#{selective.updateTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.isDel != null" >
+          and is_del = #{selective.isDel,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="ids != null" >
+        and pk_role_id in (<foreach collection="ids" separator="," item="item"> #{item} </foreach>)
+      </if>
+    </where>
+  </select>
+  <select id="selectCountByWhere" resultType="java.lang.Integer" parameterType="com.shop.pojo.RoleDo" >
+    select 
+     count(1) 
+    from role
+    <where >
+      <if test="roleNo != null" >
+        and role_no = #{roleNo,jdbcType=VARCHAR}
+      </if>
+      <if test="roleName != null" >
+        and role_name = #{roleName,jdbcType=VARCHAR}
+      </if>
+      <if test="roleDesc != null" >
+        and role_desc = #{roleDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.shop.pojo.RoleDo" useGeneratedKeys="true" keyProperty="pkRoleId" >
+    insert into role (pk_role_id, role_no, role_name, 
+      role_desc, create_id, create_time, update_time, is_del
+      )
+    values (#{pkRoleId,jdbcType=BIGINT}, #{roleNo,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
+      #{roleDesc,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, now(), now(), #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" >
+    insert into role (pk_role_id, 
+      role_no, role_name, role_desc, 
+      create_id, create_time, update_time, is_del)
+    values 
+ <foreach collection="records" separator="," item="item">  (#{item.pkRoleId,jdbcType=BIGINT}, 
+      #{item.roleNo,jdbcType=VARCHAR}, #{item.roleName,jdbcType=VARCHAR}, #{item.roleDesc,jdbcType=VARCHAR}, 
+      #{item.createId,jdbcType=BIGINT}, now(), now(), #{item.isDel,jdbcType=VARCHAR})  
+ </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.shop.pojo.RoleDo" useGeneratedKeys="true" keyProperty="pkRoleId" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkRoleId != null" >
+        pk_role_id,
+      </if>
+      <if test="roleNo != null" >
+        role_no,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="roleDesc != null" >
+        role_desc,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="true" >
+        create_time,
+      </if>
+      <if test="true" >
+        update_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkRoleId != null" >
+        #{pkRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="roleNo != null" >
+        #{roleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.pojo.RoleDo" >
+    update role
+    <set >
+      <if test="roleNo != null" >
+        role_no = #{roleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        role_desc = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="true" >
+        update_time = now(),
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_role_id = #{pkRoleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shop.pojo.RoleDo" >
+    update role
+    set role_no = #{roleNo,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      role_desc = #{roleDesc,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where pk_role_id = #{pkRoleId,jdbcType=BIGINT}
+  </update>
+</mapper>

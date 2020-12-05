@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mapper.ClientAccountDoMapper" >
+  <resultMap id="BaseResultMap" type="com.shop.pojo.ClientAccountDo" >
+    <id column="pk_client_account_id" property="pkClientAccountId" jdbcType="BIGINT" />
+    <result column="client_account_no" property="clientAccountNo" jdbcType="VARCHAR" />
+    <result column="client_account_money" property="clientAccountMoney" jdbcType="DECIMAL" />
+    <result column="consumption_money" property="consumptionMoney" jdbcType="DECIMAL" />
+    <result column="surplus_money" property="surplusMoney" jdbcType="DECIMAL" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_client_account_id, client_account_no, client_account_money, consumption_money, 
+    surplus_money, create_id, create_time, update_time, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_account
+    where pk_client_account_id = #{pkClientAccountId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from client_account
+    where pk_client_account_id = #{pkClientAccountId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectObjectListByWhere" resultMap="BaseResultMap" parameterType="com.shop.pojo.ClientAccountDo" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_account
+    <where >
+      <if test="clientAccountNo != null" >
+        and client_account_no = #{clientAccountNo,jdbcType=VARCHAR}
+      </if>
+      <if test="clientAccountMoney != null" >
+        and client_account_money = #{clientAccountMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="consumptionMoney != null" >
+        and consumption_money = #{consumptionMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="surplusMoney != null" >
+        and surplus_money = #{surplusMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectByBillId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_account
+    <where >
+      <if test="selective != null" >
+        <if test="selective.clientAccountNo != null" >
+          and client_account_no = #{selective.clientAccountNo,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.clientAccountMoney != null" >
+          and client_account_money = #{selective.clientAccountMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="selective.consumptionMoney != null" >
+          and consumption_money = #{selective.consumptionMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="selective.surplusMoney != null" >
+          and surplus_money = #{selective.surplusMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="selective.createId != null" >
+          and create_id = #{selective.createId,jdbcType=BIGINT}
+        </if>
+        <if test="selective.createTime != null" >
+          and to_days(create_time) = to_days(#{selective.createTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.updateTime != null" >
+          and to_days(update_time) = to_days(#{selective.updateTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.isDel != null" >
+          and is_del = #{selective.isDel,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="ids != null" >
+        and pk_client_account_id in (<foreach collection="ids" separator="," item="item"> #{item} </foreach>)
+      </if>
+    </where>
+  </select>
+  <select id="selectCountByWhere" resultType="java.lang.Integer" parameterType="com.shop.pojo.ClientAccountDo" >
+    select 
+     count(1) 
+    from client_account
+    <where >
+      <if test="clientAccountNo != null" >
+        and client_account_no = #{clientAccountNo,jdbcType=VARCHAR}
+      </if>
+      <if test="clientAccountMoney != null" >
+        and client_account_money = #{clientAccountMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="consumptionMoney != null" >
+        and consumption_money = #{consumptionMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="surplusMoney != null" >
+        and surplus_money = #{surplusMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.shop.pojo.ClientAccountDo" useGeneratedKeys="true" keyProperty="pkClientAccountId" >
+    insert into client_account (pk_client_account_id, client_account_no, 
+      client_account_money, consumption_money, surplus_money, 
+      create_id, create_time, update_time, is_del)
+    values (#{pkClientAccountId,jdbcType=BIGINT}, #{clientAccountNo,jdbcType=VARCHAR}, 
+      #{clientAccountMoney,jdbcType=DECIMAL}, #{consumptionMoney,jdbcType=DECIMAL}, #{surplusMoney,jdbcType=DECIMAL}, 
+      #{createId,jdbcType=BIGINT}, now(), now(), #{isDel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" >
+    insert into client_account (pk_client_account_id, 
+      client_account_no, client_account_money, 
+      consumption_money, surplus_money, 
+      create_id, create_time, update_time, is_del)
+    values 
+ <foreach collection="records" separator="," item="item">  (#{item.pkClientAccountId,jdbcType=BIGINT}, 
+      #{item.clientAccountNo,jdbcType=VARCHAR}, #{item.clientAccountMoney,jdbcType=DECIMAL}, 
+      #{item.consumptionMoney,jdbcType=DECIMAL}, #{item.surplusMoney,jdbcType=DECIMAL}, 
+      #{item.createId,jdbcType=BIGINT}, now(), now(), #{item.isDel,jdbcType=VARCHAR})  
+ </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.shop.pojo.ClientAccountDo" useGeneratedKeys="true" keyProperty="pkClientAccountId" >
+    insert into client_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkClientAccountId != null" >
+        pk_client_account_id,
+      </if>
+      <if test="clientAccountNo != null" >
+        client_account_no,
+      </if>
+      <if test="clientAccountMoney != null" >
+        client_account_money,
+      </if>
+      <if test="consumptionMoney != null" >
+        consumption_money,
+      </if>
+      <if test="surplusMoney != null" >
+        surplus_money,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="true" >
+        create_time,
+      </if>
+      <if test="true" >
+        update_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkClientAccountId != null" >
+        #{pkClientAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="clientAccountNo != null" >
+        #{clientAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAccountMoney != null" >
+        #{clientAccountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="consumptionMoney != null" >
+        #{consumptionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusMoney != null" >
+        #{surplusMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.pojo.ClientAccountDo" >
+    update client_account
+    <set >
+      <if test="clientAccountNo != null" >
+        client_account_no = #{clientAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAccountMoney != null" >
+        client_account_money = #{clientAccountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="consumptionMoney != null" >
+        consumption_money = #{consumptionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusMoney != null" >
+        surplus_money = #{surplusMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="true" >
+        update_time = now(),
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_client_account_id = #{pkClientAccountId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shop.pojo.ClientAccountDo" >
+    update client_account
+    set client_account_no = #{clientAccountNo,jdbcType=VARCHAR},
+      client_account_money = #{clientAccountMoney,jdbcType=DECIMAL},
+      consumption_money = #{consumptionMoney,jdbcType=DECIMAL},
+      surplus_money = #{surplusMoney,jdbcType=DECIMAL},
+      create_id = #{createId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where pk_client_account_id = #{pkClientAccountId,jdbcType=BIGINT}
+  </update>
+</mapper>

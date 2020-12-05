@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mapper.CommodityColorDoMapper" >
+  <resultMap id="BaseResultMap" type="com.shop.pojo.CommodityColorDo" >
+    <id column="pk_commodity_color_id" property="pkCommodityColorId" jdbcType="BIGINT" />
+    <result column="commodity_color_no" property="commodityColorNo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_commodity_color_id, commodity_color_no, name, create_id, create_time, update_time, 
+    is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from commodity_color
+    where pk_commodity_color_id = #{pkCommodityColorId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from commodity_color
+    where pk_commodity_color_id = #{pkCommodityColorId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectObjectListByWhere" resultMap="BaseResultMap" parameterType="com.shop.pojo.CommodityColorDo" >
+    select 
+    <include refid="Base_Column_List" />
+    from commodity_color
+    <where >
+      <if test="commodityColorNo != null" >
+        and commodity_color_no = #{commodityColorNo,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectByBillId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from commodity_color
+    <where >
+      <if test="selective != null" >
+        <if test="selective.commodityColorNo != null" >
+          and commodity_color_no = #{selective.commodityColorNo,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.name != null" >
+          and name = #{selective.name,jdbcType=VARCHAR}
+        </if>
+        <if test="selective.createId != null" >
+          and create_id = #{selective.createId,jdbcType=BIGINT}
+        </if>
+        <if test="selective.createTime != null" >
+          and to_days(create_time) = to_days(#{selective.createTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.updateTime != null" >
+          and to_days(update_time) = to_days(#{selective.updateTime,jdbcType=TIMESTAMP})
+        </if>
+        <if test="selective.isDel != null" >
+          and is_del = #{selective.isDel,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="ids != null" >
+        and pk_commodity_color_id in (<foreach collection="ids" separator="," item="item"> #{item} </foreach>)
+      </if>
+    </where>
+  </select>
+  <select id="selectCountByWhere" resultType="java.lang.Integer" parameterType="com.shop.pojo.CommodityColorDo" >
+    select 
+     count(1) 
+    from commodity_color
+    <where >
+      <if test="commodityColorNo != null" >
+        and commodity_color_no = #{commodityColorNo,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="createId != null" >
+        and create_id = #{createId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and to_days(create_time) = to_days(#{createTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="updateTime != null" >
+        and to_days(update_time) = to_days(#{updateTime,jdbcType=TIMESTAMP})
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.shop.pojo.CommodityColorDo" useGeneratedKeys="true" keyProperty="pkCommodityColorId" >
+    insert into commodity_color (pk_commodity_color_id, commodity_color_no, 
+      name, create_id, create_time, update_time, is_del
+      )
+    values (#{pkCommodityColorId,jdbcType=BIGINT}, #{commodityColorNo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, now(), now(), #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" >
+    insert into commodity_color (pk_commodity_color_id, 
+      commodity_color_no, name, create_id, 
+      create_time, update_time, is_del)
+    values 
+ <foreach collection="records" separator="," item="item">  (#{item.pkCommodityColorId,jdbcType=BIGINT}, 
+      #{item.commodityColorNo,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.createId,jdbcType=BIGINT}, 
+      now(), now(), #{item.isDel,jdbcType=VARCHAR})  
+ </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.shop.pojo.CommodityColorDo" useGeneratedKeys="true" keyProperty="pkCommodityColorId" >
+    insert into commodity_color
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkCommodityColorId != null" >
+        pk_commodity_color_id,
+      </if>
+      <if test="commodityColorNo != null" >
+        commodity_color_no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="true" >
+        create_time,
+      </if>
+      <if test="true" >
+        update_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkCommodityColorId != null" >
+        #{pkCommodityColorId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityColorNo != null" >
+        #{commodityColorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="true" >
+        now(),
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.pojo.CommodityColorDo" >
+    update commodity_color
+    <set >
+      <if test="commodityColorNo != null" >
+        commodity_color_no = #{commodityColorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="true" >
+        update_time = now(),
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_commodity_color_id = #{pkCommodityColorId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shop.pojo.CommodityColorDo" >
+    update commodity_color
+    set commodity_color_no = #{commodityColorNo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where pk_commodity_color_id = #{pkCommodityColorId,jdbcType=BIGINT}
+  </update>
+</mapper>
