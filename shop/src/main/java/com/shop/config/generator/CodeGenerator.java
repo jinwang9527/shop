@@ -22,7 +22,6 @@ public class CodeGenerator {
     private final static String PASSWORD = "a123456.";
     private final static String PROJECT_PATH = System.getProperty("user.dir");;
 
-
     /**
      * 全局配置
      *
