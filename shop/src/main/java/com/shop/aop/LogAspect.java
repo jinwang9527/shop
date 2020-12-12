@@ -18,7 +18,6 @@ public class LogAspect {
     @Pointcut("execution( * com.shop..*Controller.*(..))")
     public void aspect(){}
 
-
     @Around("aspect()")
     public Object run1(ProceedingJoinPoint joinPoint) throws Throwable {
         Object obj = null;
