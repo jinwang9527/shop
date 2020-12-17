@@ -31,7 +31,6 @@ public class LogAspect {
             log.info("调用方法耗时 -->" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return obj;
     }

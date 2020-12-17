@@ -3,6 +3,7 @@ spring:
   profiles:
     active: prod
 
+
 #配置分页
 pagehelper:
   helperDialect: mysql
@@ -10,10 +11,18 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-#配置 mybatis xml
-mybatis:
+#配置 mybatis-plus
+mybatis-plus:
   mapper-locations: classpath:/mappers/*.xml
-  type-aliases-package: com.shop.mapper
+  typeAliasesPackage: com.shop.entity
+  global-config:
+    db-config:
+      select-strategy: not_empty
+      insert-strategy: not_empty
+      update-strategy: not_empty
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: true
 
 #配置 mapper日志
 logging:
