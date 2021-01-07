@@ -36,6 +36,8 @@ public class Config implements WebMvcConfigurer {
         log.info("===============   启动 WebMvcConfigurer 注册类  ===============");
         addPathPatterns.add("/**");
         excludePathPatterns.add("/client/login");
+        excludePathPatterns.add("/client/register");
+        excludePathPatterns.add("/client/obtainShortMessageVerification");
 
         InterceptorRegistration webInterceptor = registry.addInterceptor(new WebInterceptor());
         webInterceptor.addPathPatterns("/**");
@@ -47,6 +49,7 @@ public class Config implements WebMvcConfigurer {
         InterceptorRegistration securityInterceptor = registry.addInterceptor(getSecurityInterceptor());
         securityInterceptor.addPathPatterns("/**");
         securityInterceptor.excludePathPatterns("/client/login");
-
+        securityInterceptor.excludePathPatterns("/client/register");
+        securityInterceptor.excludePathPatterns("/client/obtainShortMessageVerification");
     }
 }

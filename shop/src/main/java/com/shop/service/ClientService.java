@@ -4,6 +4,7 @@ import com.shop.common.result.util.ResultModel;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shop.entity.ClientDo;
 import com.shop.vo.client.LoginVo;
+import com.shop.vo.client.ObtainShortMessageVerificationVo;
 import com.shop.vo.client.RegisterVo;
 import com.shop.vo.client.UpdateClientVo;
 
@@ -56,4 +57,11 @@ public interface ClientService extends IService<ClientDo> {
      * @return
      */
     ResultModel getRole()throws Exception;
+
+    /**
+     * 发送注册短信验证
+     *
+     * @return
+     */
+    ResultModel obtainShortMessageVerification(ObtainShortMessageVerificationVo obtainShortMessageVerificationVo)throws Exception;
 }
