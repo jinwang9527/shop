@@ -52,7 +52,7 @@ spring:
     database: 0
     host: 49.234.70.24
     port: 6379
-    password:
+    password: root
     connect-timeout: 10000ms
     jedis:
       pool:
