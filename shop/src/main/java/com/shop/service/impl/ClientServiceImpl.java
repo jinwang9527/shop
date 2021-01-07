@@ -142,10 +142,10 @@ public class ClientServiceImpl extends ServiceImpl<ClientDoMapper, ClientDo> imp
      * @throws Exception
      */
     private void validRegisterParam(RegisterVo registerVo) throws Exception {
-        Assert.isNull(registerVo.getClientName(), "用户名称不能为空！");
-        Assert.isNull(registerVo.getPassword(), "用户密码不能为空！");
-        Assert.isNull(registerVo.getPhone(), "电话号码不能为空！");
-        Assert.isNull(registerVo.getVerificationCode(), "验证码不能为空！");
+        Assert.notNull(registerVo.getClientName(), "用户名称不能为空！");
+        Assert.notNull(registerVo.getPassword(), "用户密码不能为空！");
+        Assert.notNull(registerVo.getPhone(), "电话号码不能为空！");
+        Assert.notNull(registerVo.getVerificationCode(), "验证码不能为空！");
     }
 
 
