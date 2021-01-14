@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class BaseUtil {
+public class BaseUtil  {
 
     /**
      * 批量格式化短信手机号码
@@ -27,5 +27,6 @@ public class BaseUtil {
     public static String formatMessagePhone(String phone) {
         return String.format("+86%s", phone);
     }
+
 
 }
